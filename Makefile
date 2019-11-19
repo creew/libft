@@ -26,11 +26,11 @@ FLAGS	= -Wall -Wextra -Werror
 
 INCLUDES = ./includes/libft.h ./includes/get_next_line.h
 
-SRCDIR	= srcs/
-OBJDIR	= objs/
+SRCDIR	= ./srcs
+OBJDIR	= ./objs
 
 ALL_OBJ	= $(SRC:%.c=%.o)
-OBJS	= $(addprefix $(OBJDIR), $(ALL_OBJ))
+OBJS	= $(addprefix $(OBJDIR)/, $(ALL_OBJ))
 
 all: $(NAME)
 
@@ -38,8 +38,10 @@ $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(INCLUDES)
-	/bin/mkdir -p $(OBJDIR)
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCLUDES) | $(OBJDIR)
 	gcc $(FLAGS) -I./includes -c $< -o $@
 
 clean:
