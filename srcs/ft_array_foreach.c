@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-int		ft_array_foreach(t_ftarray *arr, void (*f)(void *data))
+int		ft_array_foreach(t_ftarray *arr, void (*f)(void *, void *), void *param)
 {
 	size_t	count;
 
 	count = 0;
 	while (count < arr->num_elems)
 	{
-		f(arr->data[count]);
+		f(arr->data[count], param);
 		count++;
 	}
 	return (0);
