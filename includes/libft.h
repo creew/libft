@@ -178,4 +178,5 @@ t_list			*ft_lstremove_if(t_list **root, int (*cmp)(void *, void *),
 						void *sec);
 t_ftarray		*ft_array_new(size_t init_val);
 void			ft_array_delete_all(t_ftarray **arr, void (*f)(void *));
+int				ft_array_insert(t_ftarray *arr, void *data, size_t pos);
 #endif
