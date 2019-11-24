@@ -41,7 +41,7 @@ int			ft_array_insert(t_ftarray *arr, void *data, size_t pos)
 		if (arr->data)
 		{
 			ft_voidcpy(newarr, arr->data, pos);
-			ft_voidcpy(newarr + pos + 1, arr->data + pos, arr->max_elems - pos);
+			ft_voidcpy(newarr + pos + 1, arr->data + pos, arr->num_elems - pos);
 		}
 		old = arr->data;
 		arr->data = newarr;
@@ -49,7 +49,7 @@ int			ft_array_insert(t_ftarray *arr, void *data, size_t pos)
 		ft_memdel((void **)&old);
 	}
 	else
-		ft_voidmove(arr->data + pos + 1, arr->data + pos, arr->max_elems - pos);
+		ft_voidmove(arr->data + pos + 1, arr->data + pos, arr->num_elems - pos);
 	arr->data[pos] = data;
 	arr->num_elems++;
 	return (0);

@@ -23,7 +23,7 @@ SRC = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 
 NAME	= libft.a
 
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -g
 
 INCLUDES = ./includes/libft.h ./includes/get_next_line.h
 
