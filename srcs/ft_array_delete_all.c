@@ -17,12 +17,17 @@ void	ft_array_delete_all(t_ftarray **arr, void (*f)(void *))
 	t_ftarray	*ftarray;
 
 	ftarray = *arr;
-	while (ftarray->num_elems)
+	if (ftarray)
 	{
 		if (f)
-			f(ftarray->data[ftarray->num_elems - 1]);
-		ftarray->num_elems--;
+		{
+			while (ftarray->num_elems)
+			{
+				f(ftarray->data[ftarray->num_elems - 1]);
+				ftarray->num_elems--;
+			}
+		}
+		ft_memdel((void **)&ftarray->data);
+		ft_memdel((void **)arr);
 	}
-	ft_memdel((void **)&ftarray->data);
-	ft_memdel((void **)arr);
 }
