@@ -25,7 +25,8 @@ int		ft_array_remove(t_ftarray *arr, size_t index, void (*f)(void *))
 			ft_voidcpy(arr->data + index, arr->data + index + 1,
 				arr->num_elems - index);
 		}
-		f(data);
+		if (f)
+			f(data);
 		return (0);
 	}
 	return (1);
