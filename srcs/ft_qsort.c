@@ -24,20 +24,20 @@ static void		qsort_swap(t_qsort *qs, char *d1, char *d2)
 	char			ctmp;
 
 	elem_size = qs->elem_size;
-	if (elem_size == 4)
+	while (elem_size >= sizeof(itmp))
 	{
 		itmp = *(int *)d1;
 		*(int *)d1 = *(int *)d2;
 		*(int *)d2 = itmp;
+		elem_size -= sizeof(itmp);
+		d1 += sizeof(itmp);
+		d2 += sizeof(itmp);
 	}
-	else
+	while (elem_size-- > 0)
 	{
-		while (elem_size-- > 0)
-		{
-			ctmp = d1[elem_size];
-			d1[elem_size] = d2[elem_size];
-			d2[elem_size] = ctmp;
-		}
+		ctmp = *d1;
+		*d1++ = *d2;
+		*d2++ = ctmp;
 	}
 }
 
