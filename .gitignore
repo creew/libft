@@ -1,3 +1,4 @@
 /.idea/
 *.o
 libft.a
+/cmake-build-debug/

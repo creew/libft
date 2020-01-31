@@ -34,6 +34,13 @@
 
 typedef unsigned long t_bzero_elem;
 
+typedef struct	s_qsort
+{
+	void	*arr;
+	size_t	elem_size;
+	int		(*cmp)(const void *, const void *);
+}				t_qsort;
+
 typedef struct	s_list
 {
 	void			*content;
@@ -181,4 +188,6 @@ t_list			*ft_lstremove_if(t_list **root, int (*cmp)(void *, void *),
 t_ftarray		*ft_array_new(size_t init_val);
 void			ft_array_delete_all(t_ftarray **arr, void (*f)(void *));
 int				ft_array_insert(t_ftarray *arr, void *data, size_t pos);
+void			ft_qsort(void *arr, size_t arr_size, size_t elem_size,
+						int (*cmp)(const void *, const void *));
 #endif
