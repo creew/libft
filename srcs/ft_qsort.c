@@ -14,7 +14,7 @@
 
 /*
 ** Compare function return negative value if first elem less than second,
-** and positive value if second greater than first
+** and positive value if first greater than second
 */
 
 static void		qsort_swap(t_qsort *qs, char *d1, char *d2)
