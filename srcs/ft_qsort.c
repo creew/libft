@@ -44,17 +44,17 @@ static void		qsort_swap(t_qsort *qs, char *d1, char *d2)
 	}
 }
 
-static void		qsort_int(t_qsort *qs, size_t start, size_t end)
+static void		qsort_int(t_qsort *qs, int start, int end)
 {
 	char	*pivot;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 	char	*ppos;
 
 	if (start < end)
 	{
 		j = start - 1;
-		i = 0;
+		i = start;
 		ppos = (char *)qs->arr + start * qs->elem_size;
 		pivot = (char *)qs->arr + end * qs->elem_size;
 		while (++j < end)
@@ -77,5 +77,5 @@ void			ft_qsort(void *arr, size_t arr_size, size_t elem_size,
 	qs.arr = arr;
 	qs.elem_size = elem_size;
 	qs.cmp = cmp;
-	qsort_int(&qs, 0, arr_size - 1);
+	qsort_int(&qs, 0, (int)arr_size - 1);
 }
