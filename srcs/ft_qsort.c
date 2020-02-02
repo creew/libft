@@ -53,8 +53,8 @@ static void		qsort_int(t_qsort *qs, size_t start, size_t end)
 		j = start - 1;
 		i = 0;
 		ppos = (char *)qs->arr + start * qs->elem_size;
-		pivot = (char *)qs->arr + (end - 1) * qs->elem_size - 1;
-		while (++j <= end)
+		pivot = (char *)qs->arr + end * qs->elem_size;
+		while (++j < end)
 		{
 			if (qs->cmp(ppos, pivot) < 0 && j != i)
 				qsort_swap(qs, ppos, (char *)qs->arr + i++ * qs->elem_size);
