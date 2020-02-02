@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.15)
-project(libft C)
+project(ft C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(libft
+include_directories(ft
         includes)
-add_executable(libft
+add_library(ft
         srcs/ft_abs.c
         srcs/ft_array_add.c
         srcs/ft_array_delete_all.c
