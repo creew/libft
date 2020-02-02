@@ -23,21 +23,24 @@ static void		qsort_swap(t_qsort *qs, char *d1, char *d2)
 	int				itmp;
 	char			ctmp;
 
-	elem_size = qs->elem_size;
-	while (elem_size >= sizeof(itmp))
+	if (d1 != d2)
 	{
-		itmp = *(int *)d1;
-		*(int *)d1 = *(int *)d2;
-		*(int *)d2 = itmp;
-		elem_size -= sizeof(itmp);
-		d1 += sizeof(itmp);
-		d2 += sizeof(itmp);
-	}
-	while (elem_size-- > 0)
-	{
-		ctmp = *d1;
-		*d1++ = *d2;
-		*d2++ = ctmp;
+		elem_size = qs->elem_size;
+		while (elem_size >= sizeof(itmp))
+		{
+			itmp = *(int *)d1;
+			*(int *)d1 = *(int *)d2;
+			*(int *)d2 = itmp;
+			elem_size -= sizeof(itmp);
+			d1 += sizeof(itmp);
+			d2 += sizeof(itmp);
+		}
+		while (elem_size-- > 0)
+		{
+			ctmp = *d1;
+			*d1++ = *d2;
+			*d2++ = ctmp;
+		}
 	}
 }
 
@@ -56,12 +59,12 @@ static void		qsort_int(t_qsort *qs, size_t start, size_t end)
 		pivot = (char *)qs->arr + end * qs->elem_size;
 		while (++j < end)
 		{
-			if (qs->cmp(ppos, pivot) < 0 && j != i)
+			if (qs->cmp(ppos, pivot) < 0)
 				qsort_swap(qs, ppos, (char *)qs->arr + i++ * qs->elem_size);
 			ppos += qs->elem_size;
 		}
 		qsort_swap(qs, (char *)qs->arr + i * qs->elem_size, pivot);
-		qsort_int(qs, start, i);
+		qsort_int(qs, start, i - 1);
 		qsort_int(qs, i + 1, end);
 	}
 }
