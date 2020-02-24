@@ -1,132 +1,109 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: eklompus <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/05 16:51:43 by eklompus          #+#    #+#             */
-/*   Updated: 2019/10/04 17:17:06 by eklompus         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <unistd.h>
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 #include "get_next_line.h"
 
-static int		find_in_list(t_list *data, void *cmp)
+static int		find_in_tail(t_fddata *cur, char **line, int last)
 {
-	t_fddata	*fd_list;
+	int		pos;
+	char	*posn;
+	char 	*newline;
+	long 	len;
 
-	fd_list = (t_fddata *)(data->content);
-	if (fd_list->fd == *((int *)cmp))
-		return (1);
-	return (0);
-}
-
-static int		parse_read(ssize_t readed, t_fddata *fdlist, char **line)
-{
-	if (readed < 0)
-		return (-1);
-	if (readed == 0)
+	pos = cur->tail_pos;
+	if ((posn = ft_memchr(cur->tail + pos, '\n', cur->tail_len - pos)))
 	{
-		fdlist->eof = 1;
-		if (fdlist->str_len)
+		len = posn - (cur->tail + pos);
+		if (posn - cur->tail != cur->tail_len - 1 || last)
 		{
-			*line = fdlist->str;
-			fdlist->str = NULL;
-			fdlist->str_len = 0;
+			if (!(newline = ft_memndup(cur->tail + pos, len + 1)))
+				return (-1);
+			newline[len] = '\0';
+			*line = newline;
+			cur->tail_pos += (int)(len + 1);
 			return (1);
 		}
-		return (0);
 	}
-	if ((readed + fdlist->str_len + 1) > fdlist->str_size)
+	if (last && pos != cur->tail_len)
 	{
-		if ((fdlist->str = ft_memrealloc(fdlist->str, fdlist->str_len + 1,
-										readed + fdlist->str_len + 1)) == NULL)
+		if (!(newline = ft_memndup(cur->tail + pos, (cur->tail_len - pos) + 1)))
 			return (-1);
-		fdlist->str_size = readed + fdlist->str_len + 1;
-	}
-	ft_memcpy(fdlist->str + fdlist->str_len, fdlist->buf, readed);
-	fdlist->str_len += readed;
-	fdlist->str[fdlist->str_len] = '\0';
-	return (0);
-}
-
-static int		remove_data(t_list **root, int fd, int ret)
-{
-	t_list		*list;
-	t_list		**prev;
-	t_fddata	*fddata;
-
-	list = *root;
-	prev = root;
-	while (list)
-	{
-		fddata = (t_fddata *)(list->content);
-		if (fddata->fd == fd)
-		{
-			*prev = list->next;
-			ft_memdel((void **)&(fddata->str));
-			ft_memdel((void **)&(fddata->buf));
-			ft_memdel((void **)&(list->content));
-			ft_memdel((void **)&(list));
-			break ;
-		}
-		prev = &(list->next);
-		list = list->next;
-	}
-	return (ret);
-}
-
-static int		alloc_and_move(t_fddata *data, char **line)
-{
-	char	*strbuf;
-	char	*s;
-	size_t	len;
-
-	if (data->str && data->str_len &&
-		(s = (char *)ft_memchr(data->str, '\n', data->str_len)))
-	{
-		len = s - data->str;
-		strbuf = ft_memndup(data->str, len + 1);
-		if (strbuf == NULL)
-			return (-1);
-		strbuf[len] = '\0';
-		ft_memmove(data->str, s + 1, data->str_len - len);
-		data->str_len -= (len + 1);
-		*line = strbuf;
+		newline[cur->tail_len - pos] = '\0';
+		*line = newline;
+		cur->tail_pos = cur->tail_len;
 		return (1);
 	}
 	return (0);
+}
+
+static int		find_next(t_fddata *cur, char **line)
+{
+	char	buf[BUFF_SIZE];
+	int		res;
+	char	*newdata;
+	int 	old_len;
+
+	if ((res = find_in_tail(cur, line, 0)) != 0)
+		return (res);
+	while ((res = read(cur->fd, buf, BUFF_SIZE)) > 0)
+	{
+		old_len = cur->tail_len - cur->tail_pos;
+		if (!(newdata = (char *)malloc(res + old_len)))
+			return (-1);
+		if (cur->tail)
+		{
+			ft_memcpy(newdata, cur->tail + cur->tail_pos, old_len);
+			ft_memdel((void **) &cur->tail);
+		}
+		ft_memcpy(newdata + old_len, buf, res);
+		cur->tail_len = res + old_len;
+		cur->tail = newdata;
+		cur->tail_pos = 0;
+		if ((res = find_in_tail(cur, line, 0)) != 0)
+			return (res);
+	}
+	return (res < 0 ? -1 : find_in_tail(cur, line, 1));
+}
+
+static int		free_data(int res, t_fddata **prev, t_fddata *cur)
+{
+	t_fddata	*next;
+
+	if (res <= 0)
+	{
+		next = cur->next;
+		ft_memdel((void **)&cur->tail);
+		ft_memdel((void **)&cur);
+		*prev = next;
+	}
+	return (res);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	static t_list	*root = NULL;
-	t_list			*data;
-	int				r;
-	t_fddata		*fdl;
+	static t_fddata	*fd_root;
+	t_fddata		*cur;
+	t_fddata		**prev;
+	int				res;
 
-	r = 0;
-	data = ft_lstfind(root, (void *)&fd, find_in_list);
-	if (!data)
+	prev = &fd_root;
+	cur = fd_root;
+	while (cur)
 	{
-		if (!(data = ft_lstaddblank(&root, sizeof(t_fddata))))
+		if (cur->fd == fd)
+			break;
+		prev = &cur->next;
+		cur = cur->next;
+	}
+	if (!cur)
+	{
+		prev = &fd_root;
+		if ((cur = ft_memalloc(sizeof(t_fddata))) == NULL)
 			return (-1);
-		((t_fddata *)(data->content))->fd = fd;
-		if (!(((t_fddata *)(data->content))->buf = ft_memalloc(BUFF_SIZE)))
-			r = -1;
+		cur->fd = fd;
+		cur->next = fd_root;
+		fd_root = cur;
 	}
-	fdl = (t_fddata *)(data->content);
-	while (!fdl->eof && r >= 0)
-	{
-		if ((r = alloc_and_move(fdl, line)) == 1)
-			return (1);
-		if (r >= 0)
-			if ((r = parse_read(read(fd, fdl->buf, BUFF_SIZE), fdl, line)) > 0)
-				return (1);
-	}
-	return (remove_data(&root, fd, r));
+	res = find_next(cur, line);
+	return free_data(res, prev, cur);
 }

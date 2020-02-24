@@ -13,16 +13,15 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE (524288)
+# define BUFF_SIZE (512000)
 
 typedef struct	s_fddata
 {
+	struct s_fddata	*next;
 	int				fd;
-	int				eof;
-	char			*buf;
-	char			*str;
-	unsigned long	str_len;
-	unsigned long	str_size;
+	char 			*tail;
+	int 			tail_len;
+	int				tail_pos;
 }				t_fddata;
 
 int				get_next_line(const int fd, char **line);
