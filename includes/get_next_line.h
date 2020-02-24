@@ -22,6 +22,7 @@ typedef struct	s_fddata
 	char 			*tail;
 	int 			tail_len;
 	int				tail_pos;
+	char 			eof;
 }				t_fddata;
 
 int				get_next_line(const int fd, char **line);

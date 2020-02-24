@@ -3,6 +3,21 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
+static int		check_last(t_fddata *cur, char **line)
+{
+	char 	*newline;
+	int		pos;
+
+	pos = cur->tail_pos;
+	if (!(newline = ft_memndup(cur->tail + pos, (cur->tail_len - pos) + 1)))
+		return (-1);
+	newline[cur->tail_len - pos] = '\0';
+	*line = newline;
+	cur->tail_pos = cur->tail_len;
+	cur->eof = 1;
+	return (1);
+}
+
 static int		find_in_tail(t_fddata *cur, char **line, int last)
 {
 	int		pos;
@@ -25,14 +40,7 @@ static int		find_in_tail(t_fddata *cur, char **line, int last)
 		}
 	}
 	if (last && pos != cur->tail_len)
-	{
-		if (!(newline = ft_memndup(cur->tail + pos, (cur->tail_len - pos) + 1)))
-			return (-1);
-		newline[cur->tail_len - pos] = '\0';
-		*line = newline;
-		cur->tail_pos = cur->tail_len;
-		return (1);
-	}
+		return (check_last(cur, line));
 	return (0);
 }
 
@@ -43,6 +51,8 @@ static int		find_next(t_fddata *cur, char **line)
 	char	*newdata;
 	int 	old_len;
 
+	if (cur->eof)
+		return (0);
 	if ((res = find_in_tail(cur, line, 0)) != 0)
 		return (res);
 	while ((res = read(cur->fd, buf, BUFF_SIZE)) > 0)
@@ -50,12 +60,9 @@ static int		find_next(t_fddata *cur, char **line)
 		old_len = cur->tail_len - cur->tail_pos;
 		if (!(newdata = (char *)malloc(res + old_len)))
 			return (-1);
-		if (cur->tail)
-		{
-			ft_memcpy(newdata, cur->tail + cur->tail_pos, old_len);
-			ft_memdel((void **) &cur->tail);
-		}
+		ft_memcpy(newdata, cur->tail + cur->tail_pos, old_len);
 		ft_memcpy(newdata + old_len, buf, res);
+		ft_memdel((void **) &cur->tail);
 		cur->tail_len = res + old_len;
 		cur->tail = newdata;
 		cur->tail_pos = 0;
