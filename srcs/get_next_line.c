@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eklompus <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/25 11:02:39 by eklompus          #+#    #+#             */
+/*   Updated: 2020/02/25 11:02:43 by eklompus         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include "libft.h"
 #include <stdlib.h>
@@ -5,7 +17,7 @@
 
 static int		check_last(t_fddata *cur, char **line)
 {
-	char 	*newline;
+	char	*newline;
 	int		pos;
 
 	pos = cur->tail_pos;
@@ -22,8 +34,8 @@ static int		find_in_tail(t_fddata *cur, char **line, int last)
 {
 	int		pos;
 	char	*posn;
-	char 	*newline;
-	long 	len;
+	char	*newline;
+	long	len;
 
 	pos = cur->tail_pos;
 	if ((posn = ft_memchr(cur->tail + pos, '\n', cur->tail_len - pos)))
@@ -49,7 +61,7 @@ static int		find_next(t_fddata *cur, char **line)
 	char	buf[BUFF_SIZE];
 	int		res;
 	char	*newdata;
-	int 	old_len;
+	int		old_len;
 
 	if (cur->eof)
 		return (0);
@@ -62,7 +74,7 @@ static int		find_next(t_fddata *cur, char **line)
 			return (-1);
 		ft_memcpy(newdata, cur->tail + cur->tail_pos, old_len);
 		ft_memcpy(newdata + old_len, buf, res);
-		ft_memdel((void **) &cur->tail);
+		ft_memdel((void **)&cur->tail);
 		cur->tail_len = res + old_len;
 		cur->tail = newdata;
 		cur->tail_pos = 0;
@@ -98,7 +110,7 @@ int				get_next_line(const int fd, char **line)
 	while (cur)
 	{
 		if (cur->fd == fd)
-			break;
+			break ;
 		prev = &cur->next;
 		cur = cur->next;
 	}
@@ -112,5 +124,5 @@ int				get_next_line(const int fd, char **line)
 		fd_root = cur;
 	}
 	res = find_next(cur, line);
-	return free_data(res, prev, cur);
+	return (free_data(res, prev, cur));
 }

@@ -16,7 +16,7 @@ char	*ft_strnew(size_t size)
 {
 	size_t max;
 
-	max = ~0;
+	max = ~0u;
 	if (size == max)
 		return (NULL);
 	return (ft_memalloc(size + 1));

@@ -16,9 +16,6 @@
 # include <string.h>
 # include "get_next_line.h"
 
-# define ABS(a) ((a) < 0 ? -(a) : (a))
-# define MIN(a, b) ((a) < (b) ? (a) : (b))
-
 # define FT_INTMAX	(2147483647)
 # define FT_INTMIN	(-FT_INTMAX - 1)
 
@@ -190,4 +187,7 @@ void			ft_array_delete_all(t_ftarray **arr, void (*f)(void *));
 int				ft_array_insert(t_ftarray *arr, void *data, size_t pos);
 void			ft_qsort(void *arr, size_t arr_size, size_t elem_size,
 						int (*cmp)(const void *, const void *));
+
+size_t			ft_intlen(int n);
+void			ft_swapvals(char *d1, char *d2, size_t elem_size);
 #endif

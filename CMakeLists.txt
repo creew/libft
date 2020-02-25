@@ -109,4 +109,5 @@ add_library(ft
         srcs/ft_toupper.c
         srcs/ft_trim_spaces.c
         srcs/ft_voidcpy.c
-        srcs/get_next_line.c)
+        srcs/get_next_line.c
+        srcs/ft_intlen.c srcs/ft_swapvals.c)

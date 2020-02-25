@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eklompus <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/05 17:04:29 by eklompus          #+#    #+#             */
-/*   Updated: 2019/09/19 19:29:41 by eklompus         ###   ########.fr       */
+/*   Created: 2020/02/25 11:25:27 by eklompus          #+#    #+#             */
+/*   Updated: 2020/02/25 11:25:28 by eklompus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define BUFF_SIZE (512000)
+/*
+** Max length 11 for negative integer, and 10 for positive
+*/
 
-typedef struct	s_fddata
+size_t		ft_intlen(int n)
 {
-	struct s_fddata	*next;
-	int				fd;
-	char			*tail;
-	int				tail_len;
-	int				tail_pos;
-	char			eof;
-}				t_fddata;
+	size_t	len;
 
-int				get_next_line(const int fd, char **line);
-
-#endif
+	len = n <= 0 ? 1 : 0;
+	while (n)
+	{
+		len++;
+		n /= 10;
+	}
+	return (len);
+}

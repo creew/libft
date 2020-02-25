@@ -32,5 +32,5 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 		}
 		*dst = '\0';
 	}
-	return (src_len + MIN(sz, length));
+	return (src_len + ft_min(sz, length));
 }

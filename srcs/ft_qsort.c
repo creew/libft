@@ -17,33 +17,6 @@
 ** and positive value if first greater than second
 */
 
-static void		qsort_swap(t_qsort *qs, char *d1, char *d2)
-{
-	size_t			elem_size;
-	int				itmp;
-	char			ctmp;
-
-	if (d1 != d2)
-	{
-		elem_size = qs->elem_size;
-		while (elem_size >= sizeof(itmp))
-		{
-			itmp = *(int *)d1;
-			*(int *)d1 = *(int *)d2;
-			*(int *)d2 = itmp;
-			elem_size -= sizeof(itmp);
-			d1 += sizeof(itmp);
-			d2 += sizeof(itmp);
-		}
-		while (elem_size-- > 0)
-		{
-			ctmp = *d1;
-			*d1++ = *d2;
-			*d2++ = ctmp;
-		}
-	}
-}
-
 static void		qsort_int(t_qsort *qs, int start, int end)
 {
 	char	*pivot;
@@ -60,10 +33,11 @@ static void		qsort_int(t_qsort *qs, int start, int end)
 		while (++j < end)
 		{
 			if (qs->cmp(ppos, pivot) < 0)
-				qsort_swap(qs, ppos, (char *)qs->arr + i++ * qs->elem_size);
+				ft_swapvals(ppos, (char *)qs->arr + i++ * qs->elem_size,
+					qs->elem_size);
 			ppos += qs->elem_size;
 		}
-		qsort_swap(qs, (char *)qs->arr + i * qs->elem_size, pivot);
+		ft_swapvals((char *)qs->arr + i * qs->elem_size, pivot, qs->elem_size);
 		qsort_int(qs, start, i - 1);
 		qsort_int(qs, i + 1, end);
 	}
