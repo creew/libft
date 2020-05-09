@@ -33,6 +33,18 @@ static int	process_atoi(const char *arg, int *res, int is_neg)
 	return (FT_ATOI_OK);
 }
 
+/*
+**	Безопасная реализация функции ft_atoi
+**	@param arg - строка содержащая значение
+**	@param res - указатель на int, в который будет записано числовое
+** значение при успешном выполнении
+**	@return
+**		FT_ATOI_OK - успешное выполнение<br>
+**		FT_ATOI_EMPTY_ARG - была передана пустая строка<br>
+**		FT_ATOI_WRONG_CHAR - в строке были нечисловые символы<br>
+**		FT_ATOI_OVERFLOW - переданное значение выходит за пределы int<br>
+*/
+
 int			ft_safe_atoi(const char *arg, int *res)
 {
 	int		is_neg;

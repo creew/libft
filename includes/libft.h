@@ -45,6 +45,14 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+/*
+**	data - массив данных
+**	num_elems - актуальное количество данных в массиве
+**	max_elems - максимально количество данных в массиве
+**	init_val - на сколько будет увеличиваться массив при нехватке места
+**	TODO - надо переделать init_val на динамическое изменение (1.5х)
+*/
+
 typedef struct	s_ftarray
 {
 	void	**data;

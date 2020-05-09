@@ -12,6 +12,14 @@
 
 #include "libft.h"
 
+/*
+**	Выделяет блок памяти для массива размера count с размером
+**	каждой ячейки size
+** @param count - размер массива
+** @param size - размер элемента массива
+** @return указатель на выделенный блок памяти
+*/
+
 void	*ft_calloc(size_t count, size_t size)
 {
 	return (ft_memalloc(count * size));

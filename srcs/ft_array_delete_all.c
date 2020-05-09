@@ -14,20 +14,9 @@
 
 void	ft_array_delete_all(t_ftarray **arr, void (*f)(void *))
 {
-	t_ftarray	*ftarray;
-
-	ftarray = *arr;
-	if (ftarray)
+	if (arr)
 	{
-		if (f)
-		{
-			while (ftarray->num_elems)
-			{
-				f(ftarray->data[ftarray->num_elems - 1]);
-				ftarray->num_elems--;
-			}
-		}
-		ft_memdel((void **)&ftarray->data);
+		ft_array_remove_all(*arr, f);
 		ft_memdel((void **)arr);
 	}
 }
