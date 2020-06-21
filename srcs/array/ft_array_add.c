@@ -16,17 +16,19 @@ int			ft_array_add(t_ftarray *arr, void *data)
 {
 	void	**newarr;
 	void	**old;
+	size_t	new_size;
 
 	if (arr->num_elems >= arr->max_elems)
 	{
-		newarr = ft_calloc(arr->max_elems + arr->init_val, sizeof(void *));
+		new_size = arr->max_elems + (arr->max_elems >> 1ul) + 1;
+		newarr = ft_calloc(new_size, sizeof(void *));
 		if (!newarr)
 			return (1);
 		if (arr->data)
 			ft_voidcpy(newarr, arr->data, arr->max_elems);
 		old = arr->data;
 		arr->data = newarr;
-		arr->max_elems += arr->init_val;
+		arr->max_elems = new_size;
 		ft_memdel((void **)&old);
 	}
 	arr->data[arr->num_elems++] = data;
