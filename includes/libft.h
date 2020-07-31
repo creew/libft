@@ -18,6 +18,7 @@
 # include "array.h"
 # include "lst.h"
 # include "str.h"
+# include "out.h"
 
 # define FT_INTMAX	(2147483647)
 # define FT_INTMIN	(-FT_INTMAX - 1)
@@ -49,14 +50,6 @@ void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 void			*ft_memalloc(size_t size);
 void			ft_memdel(void **ap);
-void			ft_putchar(char c);
-void			ft_putstr(char const *s);
-void			ft_putendl(char const *s);
-void			ft_putnbr(int n);
-void			ft_putchar_fd(char c, int fd);
-void			ft_putstr_fd(char const *s, int fd);
-void			ft_putendl_fd(char const *s, int fd);
-void			ft_putnbr_fd(int n, int fd);
 void			*ft_memrealloc(void *data, size_t old_size, size_t new_size);
 void			*ft_memndup(const void *mem, size_t size);
 void			ft_intmove(int *dst, int *src, size_t size);

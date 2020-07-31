@@ -57,14 +57,14 @@ add_library(ft
         srcs/mem/ft_memrealloc.c
         srcs/mem/ft_memset.c
         srcs/oth/ft_min.c
-        srcs/oth/ft_putchar.c
-        srcs/oth/ft_putchar_fd.c
-        srcs/oth/ft_putendl.c
-        srcs/oth/ft_putendl_fd.c
-        srcs/oth/ft_putnbr.c
-        srcs/oth/ft_putnbr_fd.c
-        srcs/oth/ft_putstr.c
-        srcs/oth/ft_putstr_fd.c
+        srcs/out/ft_putchar.c
+        srcs/out/ft_putchar_fd.c
+        srcs/out/ft_putendl.c
+        srcs/out/ft_putendl_fd.c
+        srcs/out/ft_putnbr.c
+        srcs/out/ft_putnbr_fd.c
+        srcs/out/ft_putstr.c
+        srcs/out/ft_putstr_fd.c
         srcs/oth/ft_qsort.c
         srcs/oth/ft_queue_add.c
         srcs/oth/ft_queue_poll.c
@@ -111,4 +111,5 @@ add_library(ft
         srcs/mem/ft_voidcpy.c
         srcs/get_next_line/get_next_line.c
         srcs/mem/ft_intlen.c
-        srcs/oth/ft_swapvals.c)
+        srcs/oth/ft_swapvals.c
+        srcs/out/ft_putintarray.c)

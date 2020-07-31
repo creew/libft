@@ -63,14 +63,6 @@ OTH_SRC = ft_abs.c \
 		ft_getc.c \
 		ft_max.c \
 		ft_min.c \
-		ft_putchar.c \
-		ft_putchar_fd.c \
-		ft_putendl.c \
-		ft_putendl_fd.c \
-		ft_putnbr.c \
-		ft_putnbr_fd.c \
-		ft_putstr.c \
-		ft_putstr_fd.c \
 		ft_qsort.c \
 		ft_queue_add.c \
 		ft_queue_poll.c \
@@ -131,6 +123,19 @@ STR_DIR = str
 STR_ALL = $(addprefix $(SRCDIR)/$(STR_DIR)/, $(STR_SRC))
 STR_OBJ = $(addprefix $(OBJDIR)/$(STR_DIR)/, $(STR_SRC:%.c=%.o))
 
+OUT_SRC = ft_putchar.c \
+          ft_putchar_fd.c \
+          ft_putendl.c \
+          ft_putendl_fd.c \
+          ft_putnbr.c \
+          ft_putnbr_fd.c \
+          ft_putstr.c \
+          ft_putstr_fd.c \
+          ft_putintarray.c
+OUT_DIR = out
+OUT_ALL = $(addprefix $(SRCDIR)/$(OUT_DIR)/, $(OUT_SRC))
+OUT_OBJ = $(addprefix $(OBJDIR)/$(OUT_DIR)/, $(OUT_SRC:%.c=%.o))
+
 NAME	= libft.a
 
 FLAGS	= -Wall -Wextra -Werror -g
@@ -139,9 +144,16 @@ INCLUDES = ./includes/array.h \
 		./includes/libft.h \
 		./includes/get_next_line.h \
 		./includes/lst.h \
-		./includes/str.h
+		./includes/str.h \
+		./includes/out.h
 
-OBJS	= $(ARR_OBJ) $(GNL_OBJ) $(LST_OBJ) $(MEM_OBJ) $(OTH_OBJ) $(STR_OBJ)
+OBJS	= $(ARR_OBJ) \
+ 			$(GNL_OBJ) \
+ 			$(LST_OBJ) \
+ 			$(MEM_OBJ) \
+ 			$(OTH_OBJ) \
+ 			$(STR_OBJ) \
+ 			$(OUT_OBJ)
 
 all: $(NAME)
 
