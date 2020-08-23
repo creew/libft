@@ -20,7 +20,7 @@ int	ft_array_init(t_ftarray *ftarray, size_t init_val)
 			init_val = 64;
 		ft_bzero(ftarray, sizeof(t_ftarray));
 		ftarray->init_val = init_val;
-		return (0);
+		return (FT_OK);
 	}
-	return (1);
+	return (FT_NULL_POINTER);
 }

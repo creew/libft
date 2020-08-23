@@ -37,7 +37,7 @@ int			ft_array_insert(t_ftarray *arr, void *data, size_t pos)
 	{
 		newarr = ft_calloc(arr->max_elems + arr->init_val, sizeof(void *));
 		if (!newarr)
-			return (1);
+			return (FT_ENOMEM);
 		if (arr->data)
 		{
 			ft_voidcpy(newarr, arr->data, pos);
@@ -52,5 +52,5 @@ int			ft_array_insert(t_ftarray *arr, void *data, size_t pos)
 		ft_voidmove(arr->data + pos + 1, arr->data + pos, arr->num_elems - pos);
 	arr->data[pos] = data;
 	arr->num_elems++;
-	return (0);
+	return (FT_OK);
 }

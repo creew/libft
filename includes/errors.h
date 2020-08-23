@@ -17,7 +17,9 @@ typedef enum	e_ftresult
 {
 	FT_OK,
 	FT_ERROR,
-	FT_ENOMEM
+	FT_ENOMEM,
+	FT_INDEX_OUT_OF_BOUNDS,
+	FT_NULL_POINTER
 }				t_ftresult;
 
 typedef enum	e_ftatoiresult

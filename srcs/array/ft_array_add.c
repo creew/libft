@@ -23,7 +23,7 @@ int			ft_array_add(t_ftarray *arr, void *data)
 		new_size = arr->max_elems + (arr->max_elems >> 1ul) + 1;
 		newarr = ft_calloc(new_size, sizeof(void *));
 		if (!newarr)
-			return (1);
+			return (FT_ENOMEM);
 		if (arr->data)
 			ft_voidcpy(newarr, arr->data, arr->max_elems);
 		old = arr->data;
@@ -32,5 +32,5 @@ int			ft_array_add(t_ftarray *arr, void *data)
 		ft_memdel((void **)&old);
 	}
 	arr->data[arr->num_elems++] = data;
-	return (0);
+	return (FT_OK);
 }

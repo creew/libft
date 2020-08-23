@@ -27,7 +27,7 @@ int		ft_array_remove(t_ftarray *arr, size_t index, void (*f)(void *))
 		}
 		if (f)
 			f(data);
-		return (0);
+		return (FT_OK);
 	}
-	return (1);
+	return (FT_INDEX_OUT_OF_BOUNDS);
 }

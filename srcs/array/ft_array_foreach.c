@@ -22,5 +22,5 @@ int		ft_array_foreach(t_ftarray *arr, void (*f)(void *, void *), void *param)
 		f(arr->data[count], param);
 		count++;
 	}
-	return (0);
+	return (FT_OK);
 }

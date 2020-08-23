@@ -17,7 +17,7 @@ int		ft_array_get(t_ftarray *arr, size_t index, void **data)
 	if (index < arr->num_elems)
 	{
 		*data = arr->data[index];
-		return (0);
+		return (FT_OK);
 	}
-	return (1);
+	return (FT_INDEX_OUT_OF_BOUNDS);
 }
