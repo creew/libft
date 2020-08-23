@@ -12,8 +12,8 @@
 
 #include "libft.h"
 
-void	ft_sbdelete(t_sb *sb)
+void	ft_sbdelete(t_sb **sb)
 {
-	ft_sbremove(sb);
-	ft_memdel((void **)&sb);
+	ft_sbremove(*sb);
+	ft_memdel((void **)sb);
 }
