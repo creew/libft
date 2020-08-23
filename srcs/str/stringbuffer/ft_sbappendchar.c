@@ -33,6 +33,5 @@ t_ftresult	ft_sbappendchar(t_sb *sb, char c)
 	}
 	sb->buf[sb->length++] = c;
 	sb->buf[sb->length] = 0;
-	sb->length += 1;
 	return FT_OK;
 }
