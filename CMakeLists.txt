@@ -112,4 +112,14 @@ add_library(ft
         srcs/get_next_line/get_next_line.c
         srcs/mem/ft_intlen.c
         srcs/oth/ft_swapvals.c
-        srcs/out/ft_putintarray.c)
+        srcs/out/ft_putintarray.c
+        srcs/str/stringbuffer/ft_sbnew.c
+        srcs/str/stringbuffer/ft_sbappendstr.c
+        srcs/str/stringbuffer/ft_sbget.c
+        srcs/str/stringbuffer/ft_sbappendchar.c
+        srcs/str/stringbuffer/ft_sbinit.c
+        srcs/str/stringbuffer/ft_sbremove.c
+        srcs/str/stringbuffer/ft_sbdelete.c
+        srcs/str/stringbuffer/ft_sbclear.c
+        srcs/str/stringbuffer/ft_sblen.c
+        )

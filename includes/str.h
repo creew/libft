@@ -2,11 +2,7 @@
 # define STR_H
 
 #include <string.h>
-
-# define FT_ATOI_OK			(0)
-# define FT_ATOI_OVERFLOW	(1)
-# define FT_ATOI_EMPTY_ARG	(2)
-# define FT_ATOI_WRONG_CHAR	(3)
+#include "stringbuffer.h"
 
 int				ft_atoi(const char *str);
 int				ft_isalnum(int c);
@@ -52,5 +48,7 @@ char			*ft_strtrim(char const *s);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 char			*ft_trim_spaces(char *str);
+
+
 
 #endif

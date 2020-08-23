@@ -118,7 +118,16 @@ STR_SRC = ft_atoi.c \
 		ft_strtrim.c \
 		ft_tolower.c \
 		ft_toupper.c \
-		ft_trim_spaces.c
+		ft_trim_spaces.c \
+		stringbuffer/ft_sbappendchar.c \
+		stringbuffer/ft_sbappendstr.c \
+		stringbuffer/ft_sbclear.c \
+		stringbuffer/ft_sbdelete.c \
+		stringbuffer/ft_sbget.c \
+		stringbuffer/ft_sbinit.c \
+		stringbuffer/ft_sblen.c \
+		stringbuffer/ft_sbnew.c \
+		stringbuffer/ft_sbremove.c
 STR_DIR = str
 STR_ALL = $(addprefix $(SRCDIR)/$(STR_DIR)/, $(STR_SRC))
 STR_OBJ = $(addprefix $(OBJDIR)/$(STR_DIR)/, $(STR_SRC:%.c=%.o))
@@ -145,7 +154,8 @@ INCLUDES = ./includes/array.h \
 		./includes/get_next_line.h \
 		./includes/lst.h \
 		./includes/str.h \
-		./includes/out.h
+		./includes/out.h \
+		./includes/stringbuffer.h
 
 OBJS	= $(ARR_OBJ) \
  			$(GNL_OBJ) \

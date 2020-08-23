@@ -19,6 +19,7 @@
 # include "lst.h"
 # include "str.h"
 # include "out.h"
+# include "errors.h"
 
 # define FT_INTMAX	(2147483647)
 # define FT_INTMIN	(-FT_INTMAX - 1)
