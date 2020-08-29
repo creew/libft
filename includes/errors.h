@@ -15,7 +15,7 @@
 
 typedef enum	e_ftresult
 {
-	FT_OK,
+	FT_OK = 0,
 	FT_ERROR,
 	FT_ENOMEM,
 	FT_INDEX_OUT_OF_BOUNDS,
