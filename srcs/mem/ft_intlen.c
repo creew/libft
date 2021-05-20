@@ -16,11 +16,14 @@
 ** Max length 11 for negative integer, and 10 for positive
 */
 
-size_t		ft_intlen(int n)
+size_t	ft_intlen(int n)
 {
 	size_t	len;
 
-	len = n <= 0 ? 1 : 0;
+	if (n <= 0)
+		len = 1;
+	else
+		len = 0;
 	while (n)
 	{
 		len++;

@@ -13,7 +13,7 @@
 #ifndef ERRORS_H
 # define ERRORS_H
 
-typedef enum	e_ftresult
+typedef enum e_ftresult
 {
 	FT_OK = 0,
 	FT_ERROR,
@@ -22,7 +22,7 @@ typedef enum	e_ftresult
 	FT_NULL_POINTER
 }				t_ftresult;
 
-typedef enum	e_ftatoiresult
+typedef enum e_ftatoiresult
 {
 	FT_ATOI_OK = 0,
 	FT_ATOI_OVERFLOW = 1,

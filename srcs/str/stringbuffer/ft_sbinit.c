@@ -20,9 +20,9 @@ t_ftresult	ft_sbinit(t_sb *sb, size_t size)
 		size = 64;
 	buf = ft_strnew(size);
 	if (buf == NULL)
-		return FT_ENOMEM;
+		return (FT_ENOMEM);
 	sb->size = size;
 	sb->buf = buf;
 	sb->length = 0;
-	return FT_OK;
+	return (FT_OK);
 }

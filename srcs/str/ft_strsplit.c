@@ -13,13 +13,16 @@
 #include "libft.h"
 #include <stdlib.h>
 
-static int	fill_arr(char **strarr, int count, char const *s, char *sc)
+static int	fill_arr(char **strarr, int count, char const *s, const char *sc)
 {
 	size_t		len;
 
 	if (strarr == NULL)
 		return (0);
-	len = sc == NULL ? ft_strlen(s) : (size_t)(sc - s);
+	if (sc == NULL)
+		len = ft_strlen(s);
+	else
+		len = (size_t)(sc - s);
 	strarr[count] = ft_strnew(len);
 	if (strarr[count] == NULL)
 	{
@@ -58,7 +61,7 @@ static int	count_words(char **strarr, char const *s, char c)
 	return (count);
 }
 
-char		**ft_strsplit(char const *s, char c)
+char	**ft_strsplit(char const *s, char c)
 {
 	int		count;
 	char	**strarr;

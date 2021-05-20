@@ -15,76 +15,115 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-static int		check_last(t_fddata *cur, char **line)
+/**
+ * Копирование последних данных в строку
+ *
+ * @param cur - структура для текущего fd
+ * @param line - указатель на строку для возврата
+ * @param last - флаг, является ли вызов последним
+ * @return  -1 - ошибка выделения памяти
+ * 			1 - успех
+ */
+static int	check_last(t_fddata *cur, char **line, int last)
 {
 	char	*newline;
 	int		pos;
 
 	pos = cur->tail_pos;
-	if (!(newline = ft_memndup(cur->tail + pos, (cur->tail_len - pos) + 1)))
-		return (-1);
-	newline[cur->tail_len - pos] = '\0';
-	*line = newline;
-	cur->tail_pos = cur->tail_len;
-	cur->eof = 1;
-	return (1);
+	if (last && pos != cur->tail_len)
+	{
+		newline = ft_memalloc(cur->tail_len - pos + 1);
+		if (!newline)
+			return (-1);
+		ft_memcpy(newline, cur->tail + pos, cur->tail_len - pos);
+		newline[cur->tail_len - pos] = '\0';
+		*line = newline;
+		cur->tail_pos = cur->tail_len;
+		cur->eof = 1;
+		return (1);
+	}
+	return (0);
 }
 
-static int		find_in_tail(t_fddata *cur, char **line, int last)
+/**
+ * Находит строку в массиве данных
+ *
+ * @param cur - структура для текущего fd
+ * @param line - указатель на строку для возврата
+ * @param last - флаг, является ли вызов последним
+ * @param res - результат вызова функции read
+ * @return	0 - строка не найдена
+ * 			1 - строка найдена, записана в **line
+ * 			-1 - ошибка
+ */
+static int	find_in_tail(t_fddata *cur, char **line, int last, int res)
 {
 	int		pos;
 	char	*posn;
 	char	*newline;
 	long	len;
 
+	if (res < 0)
+		return (-1);
 	pos = cur->tail_pos;
-	if ((posn = ft_memchr(cur->tail + pos, '\n', cur->tail_len - pos)))
+	posn = ft_memchr(cur->tail + pos, '\n', cur->tail_len - pos);
+	if (posn)
 	{
 		len = posn - (cur->tail + pos);
 		if (posn - cur->tail != cur->tail_len - 1 || last)
 		{
-			if (!(newline = ft_memndup(cur->tail + pos, len + 1)))
+			newline = ft_memalloc(len + 1);
+			if (!newline)
 				return (-1);
+			ft_memcpy(newline, cur->tail + pos, len);
 			newline[len] = '\0';
 			*line = newline;
 			cur->tail_pos += (int)(len + 1);
 			return (1);
 		}
 	}
-	if (last && pos != cur->tail_len)
-		return (check_last(cur, line));
-	return (0);
+	return (check_last(cur, line, last));
 }
 
-static int		find_next(t_fddata *cur, char **line)
+/**
+ * Ищет строку, при необходимости читает данные
+ * @param cur - структура для текущего fd
+ * @param line - указатель на строку для возврата
+ * @param res - dirty hack
+ * @return	0 - строка не найдена
+ * 			1 - строка найдена, записана в **line
+ * 			-1 - ошибка
+ */
+static int	find_next(t_fddata *cur, char **line, int res)
 {
 	char	buf[BUFF_SIZE];
-	int		res;
 	char	*newdata;
-	int		old_len;
 
-	if (cur->eof)
-		return (0);
-	if ((res = find_in_tail(cur, line, 0)) != 0)
+	res = find_in_tail(cur, line, 0, 1);
+	if (res != 0)
 		return (res);
-	while ((res = read(cur->fd, buf, BUFF_SIZE)) > 0)
+	res = read(cur->fd, buf, BUFF_SIZE);
+	while (res > 0)
 	{
-		old_len = cur->tail_len - cur->tail_pos;
-		if (!(newdata = (char *)malloc(res + old_len)))
+		newdata = (char *)malloc(res + cur->tail_len - cur->tail_pos);
+		if (!newdata)
 			return (-1);
-		ft_memcpy(newdata, cur->tail + cur->tail_pos, old_len);
-		ft_memcpy(newdata + old_len, buf, res);
+		ft_memcpy(newdata, cur->tail + cur->tail_pos,
+			cur->tail_len - cur->tail_pos);
+		ft_memcpy(newdata + cur->tail_len - cur->tail_pos, buf, res);
 		ft_memdel((void **)&cur->tail);
-		cur->tail_len = res + old_len;
+		cur->tail_len = res + cur->tail_len - cur->tail_pos;
 		cur->tail = newdata;
 		cur->tail_pos = 0;
-		if ((res = find_in_tail(cur, line, 0)) != 0)
+		res = find_in_tail(cur, line, 0, 1);
+		if (res != 0)
 			return (res);
+		res = read(cur->fd, buf, BUFF_SIZE);
 	}
-	return (res < 0 ? -1 : find_in_tail(cur, line, 1));
+	return (find_in_tail(cur, line, 1, res));
 }
 
-static int		free_data(int res, t_fddata **prev, t_fddata *cur)
+static int	free_data(int res, t_fddata **prev, t_fddata *cur)
 {
 	t_fddata	*next;
 
@@ -98,31 +137,30 @@ static int		free_data(int res, t_fddata **prev, t_fddata *cur)
 	return (res);
 }
 
-int				get_next_line(const int fd, char **line)
+int	get_next_line(const int fd, char **line)
 {
 	static t_fddata	*fd_root;
 	t_fddata		*cur;
 	t_fddata		**prev;
-	int				res;
 
 	prev = &fd_root;
 	cur = fd_root;
-	while (cur)
+	while (cur && cur->fd != fd)
 	{
-		if (cur->fd == fd)
-			break ;
 		prev = &cur->next;
 		cur = cur->next;
 	}
 	if (!cur)
 	{
 		prev = &fd_root;
-		if ((cur = ft_memalloc(sizeof(t_fddata))) == NULL)
+		cur = ft_memalloc(sizeof(t_fddata));
+		if (cur == NULL)
 			return (-1);
 		cur->fd = fd;
 		cur->next = fd_root;
 		fd_root = cur;
 	}
-	res = find_next(cur, line);
-	return (free_data(res, prev, cur));
+	if (cur->eof)
+		return (free_data(0, prev, cur));
+	return (free_data(find_next(cur, line, 0), prev, cur));
 }

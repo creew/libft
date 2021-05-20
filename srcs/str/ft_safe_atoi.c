@@ -14,21 +14,23 @@
 
 static int	process_atoi(const char *arg, int *res, int is_neg)
 {
-	int val;
+	int	val;
 
-	while ((val = *arg++))
+	val = (unsigned char)*arg++;
+	while (val)
 	{
 		if (val < '0' || val > '9')
 			return (FT_ATOI_WRONG_CHAR);
 		val = (val - '0') * is_neg;
-		if (*res > FT_INTMAX / 10 ||
-			(*res == FT_INTMAX / 10 && val > FT_INTMAX % 10))
+		if (*res > FT_INTMAX / 10
+			|| (*res == FT_INTMAX / 10 && val > FT_INTMAX % 10))
 			return (FT_ATOI_OVERFLOW);
-		if (*res < FT_INTMIN / 10 ||
-			(*res == FT_INTMIN / 10 && val < FT_INTMIN % 10))
+		if (*res < (-FT_INTMAX - 1) / 10
+			|| (*res == (-FT_INTMAX - 1) / 10 && val < (-FT_INTMAX - 1) % 10))
 			return (FT_ATOI_OVERFLOW);
 		*res = *res * 10;
 		*res = *res + val;
+		val = (unsigned char)*arg++;
 	}
 	return (FT_ATOI_OK);
 }
@@ -45,7 +47,7 @@ static int	process_atoi(const char *arg, int *res, int is_neg)
 **		FT_ATOI_OVERFLOW - переданное значение выходит за пределы int<br>
 */
 
-int			ft_safe_atoi(const char *arg, int *res)
+int	ft_safe_atoi(const char *arg, int *res)
 {
 	int		is_neg;
 

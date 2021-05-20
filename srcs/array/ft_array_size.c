@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-size_t		ft_array_size(t_ftarray *arr)
+size_t	ft_array_size(t_ftarray *arr)
 {
 	return (arr->num_elems);
 }

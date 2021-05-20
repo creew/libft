@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_list		*ft_lstget(t_list *lst, int index)
+t_list	*ft_lstget(t_list *lst, int index)
 {
 	while (lst && index--)
 		lst = lst->next;

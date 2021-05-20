@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		ft_array_foreach(t_ftarray *arr, void (*f)(void *, void *), void *param)
+int	ft_array_foreach(t_ftarray *arr, void (*f)(void *, void *), void *param)
 {
 	size_t	count;
 

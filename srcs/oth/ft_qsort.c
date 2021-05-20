@@ -17,7 +17,7 @@
 ** and positive value if first greater than second
 */
 
-static void		qsort_int(t_qsort *qs, int start, int end)
+static void	qsort_int(t_qsort *qs, int start, int end)
 {
 	char	*pivot;
 	int		i;
@@ -33,7 +33,7 @@ static void		qsort_int(t_qsort *qs, int start, int end)
 		while (++j < end)
 		{
 			if (qs->cmp(ppos, pivot) < 0)
-				ft_swapvals(ppos, (char *)qs->arr + i++ * qs->elem_size,
+				ft_swapvals(ppos, (char *)qs->arr + (i++) * qs->elem_size,
 					qs->elem_size);
 			ppos += qs->elem_size;
 		}
@@ -43,8 +43,8 @@ static void		qsort_int(t_qsort *qs, int start, int end)
 	}
 }
 
-void			ft_qsort(void *arr, size_t arr_size, size_t elem_size,
-						int (*cmp)(const void *, const void *))
+void	ft_qsort(void *arr, size_t arr_size, size_t elem_size,
+			int (*cmp)(const void *, const void *))
 {
 	t_qsort		qs;
 

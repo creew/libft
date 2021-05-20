@@ -24,13 +24,13 @@ static char	const	*skip_rspaces(char const *s)
 	size_t	len;
 
 	len = ft_strlen(s);
-	while (len > 0 &&
-			(s[len - 1] == ' ' || s[len - 1] == '\n' || s[len - 1] == '\t'))
+	while (len > 0
+		&& (s[len - 1] == ' ' || s[len - 1] == '\n' || s[len - 1] == '\t'))
 		len--;
 	return (s + len);
 }
 
-char				*ft_strtrim(char const *s)
+char	*ft_strtrim(char const *s)
 {
 	char		*str;
 	char const	*s1;

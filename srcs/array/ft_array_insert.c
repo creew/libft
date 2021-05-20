@@ -26,7 +26,7 @@ static void	ft_voidmove(void **dst, void **src, size_t size)
 	}
 }
 
-int			ft_array_insert(t_ftarray *arr, void *data, size_t pos)
+int	ft_array_insert(t_ftarray *arr, void *data, size_t pos)
 {
 	void	**newarr;
 	void	**old;

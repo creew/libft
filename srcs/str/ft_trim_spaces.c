@@ -14,8 +14,8 @@
 
 char	*ft_trim_spaces(char *str)
 {
-	size_t len;
-	char * r;
+	size_t	len;
+	char	*r;
 
 	r = str;
 	while (ft_isspace(*str))

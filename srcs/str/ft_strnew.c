@@ -14,7 +14,7 @@
 
 char	*ft_strnew(size_t size)
 {
-	size_t max;
+	size_t	max;
 
 	max = ~0u;
 	if (size == max)

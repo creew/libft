@@ -15,7 +15,7 @@
 
 # define BUFF_SIZE (512000)
 
-typedef struct	s_fddata
+typedef struct s_fddata
 {
 	struct s_fddata	*next;
 	int				fd;

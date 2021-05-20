@@ -26,7 +26,7 @@ char	*ft_strstr(const char *haystack, const char *needle)
 	while (haystack[pos] && ((pos + ne_len) <= hs_len))
 	{
 		if (ft_strncmp(haystack + pos, needle, ne_len) == 0)
-			return (char *)(haystack + pos);
+			return ((char *)(haystack + pos));
 		pos++;
 	}
 	return (NULL);

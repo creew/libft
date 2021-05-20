@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-size_t		ft_sblen(t_sb *sb)
+size_t	ft_sblen(t_sb *sb)
 {
-	return sb->length;
+	return (sb->length);
 }

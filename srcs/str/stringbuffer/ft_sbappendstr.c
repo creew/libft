@@ -26,7 +26,7 @@ t_ftresult	ft_sbappendstr(t_sb *sb, const char *str)
 		need = need + (need >> 1ul) + 1;
 		buf = ft_strnew(need);
 		if (buf == NULL)
-			return FT_ENOMEM;
+			return (FT_ENOMEM);
 		ft_memcpy(buf, sb->buf, sb->length);
 		tbuf = sb->buf;
 		sb->buf = buf;
@@ -35,5 +35,5 @@ t_ftresult	ft_sbappendstr(t_sb *sb, const char *str)
 	}
 	ft_strcpy(sb->buf + sb->length, str);
 	sb->length += slen;
-	return FT_OK;
+	return (FT_OK);
 }

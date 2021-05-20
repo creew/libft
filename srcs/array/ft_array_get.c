@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		ft_array_get(t_ftarray *arr, size_t index, void **data)
+int	ft_array_get(t_ftarray *arr, size_t index, void **data)
 {
 	if (index < arr->num_elems)
 	{

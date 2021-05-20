@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		ft_stack_pop(t_ftstack *stack, void **data)
+int	ft_stack_pop(t_ftstack *stack, void **data)
 {
 	void	*d;
 

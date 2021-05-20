@@ -14,5 +14,5 @@
 
 char	*ft_sbget(t_sb *sb)
 {
-	return sb->buf;
+	return (sb->buf);
 }

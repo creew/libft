@@ -22,25 +22,23 @@
 # include "errors.h"
 
 # define FT_INTMAX	(2147483647)
-# define FT_INTMIN	(-FT_INTMAX - 1)
 
 # define FT_LONGMAX	(9223372036854775807)
-# define FT_LONGMIN	(-FT_LONGMAX - 1)
 
 # define FT_EOF (-2)
 
-typedef unsigned long t_bzero_elem;
+typedef unsigned long	t_bzero_elem;
 
-typedef struct	s_qsort
+typedef struct s_qsort
 {
 	void	*arr;
 	size_t	elem_size;
 	int		(*cmp)(const void *, const void *);
-}				t_qsort;
+}	t_qsort;
 
-typedef t_ftarray	t_ftstack;
+typedef t_ftarray		t_ftstack;
 
-typedef	t_list		t_ftqueue;
+typedef t_list			t_ftqueue;
 
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
@@ -66,11 +64,11 @@ int				ft_abs(int a);
 int				ft_min(int a, int b);
 int				ft_max(int a, int b);
 void			ft_bubble_sort(void *arr, size_t arr_size, size_t elem_size,
-						int (*cmp)(const void *, const void *));
+					int (*cmp)(const void *, const void *));
 void			*ft_calloc(size_t count, size_t size);
 void			ft_voidcpy(void **dst, void **src, size_t size);
 void			ft_qsort(void *arr, size_t arr_size, size_t elem_size,
-						int (*cmp)(const void *, const void *));
+					int (*cmp)(const void *, const void *));
 size_t			ft_intlen(int n);
 void			ft_swapvals(char *d1, char *d2, size_t elem_size);
 #endif

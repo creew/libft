@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void		ft_sbremove(t_sb *sb)
+void	ft_sbremove(t_sb *sb)
 {
 	ft_strdel(&sb->buf);
 	sb->length = 0;

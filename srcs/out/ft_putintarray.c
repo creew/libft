@@ -1,9 +1,7 @@
-//
-// Created by eklompus on 8/1/20.
-//
 #include "libft.h"
 
-void ft_putintarray(int *arr, size_t size, char *name) {
+void	ft_putintarray(int *arr, size_t size, char *name)
+{
 	size_t	pos;
 	size_t	last_size;
 

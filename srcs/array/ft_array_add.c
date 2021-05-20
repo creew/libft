@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int			ft_array_add(t_ftarray *arr, void *data)
+int	ft_array_add(t_ftarray *arr, void *data)
 {
 	void	**newarr;
 	void	**old;

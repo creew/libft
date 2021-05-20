@@ -12,8 +12,8 @@
 
 #include "libft.h"
 
-void		ft_bubble_sort(void *arr, size_t arr_size, size_t elem_size,
-					int (*cmp)(const void *, const void *))
+void	ft_bubble_sort(void *arr, size_t arr_size, size_t elem_size,
+			int (*cmp)(const void *, const void *))
 {
 	char	*data;
 	size_t	i;

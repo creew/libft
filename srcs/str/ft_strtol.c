@@ -14,11 +14,11 @@
 
 static int	get_base(const char **nptr, int base)
 {
-	const char *ptr;
+	const char	*ptr;
 
 	ptr = *nptr;
-	if ((base == 0 || base == 16) &&
-		(ptr[0] == '0' && (ptr[1] == 'x' || ptr[1] == 'X')))
+	if ((base == 0 || base == 16)
+		&& (ptr[0] == '0' && (ptr[1] == 'x' || ptr[1] == 'X')))
 	{
 		base = 16;
 		*nptr = ptr + 2;
@@ -63,16 +63,17 @@ static int	get_sign(const char **nptr)
 
 static long	calc_val(long val, int num, int base, int *flow)
 {
-	if (val > FT_LONGMAX / base ||
-		(val == FT_LONGMAX / base && num > FT_LONGMAX % base))
+	if (val > FT_LONGMAX / base
+		|| (val == FT_LONGMAX / base && num > FT_LONGMAX % base))
 	{
 		val = FT_LONGMAX;
 		*flow = 1;
 	}
-	else if (val < (FT_LONGMIN / base) ||
-		(val == (FT_LONGMIN / base) && num < (FT_LONGMIN % base)))
+	else if (val < ((-FT_LONGMAX - 1) / base)
+		|| (val == ((-FT_LONGMAX - 1) / base)
+			&& num < ((-FT_LONGMAX - 1) % base)))
 	{
-		val = FT_LONGMIN;
+		val = (-FT_LONGMAX - 1);
 		*flow = 1;
 	}
 	else
@@ -83,7 +84,7 @@ static long	calc_val(long val, int num, int base, int *flow)
 	return (val);
 }
 
-long		ft_strtol(const char *nptr, char **endptr, int base)
+long	ft_strtol(const char *nptr, char **endptr, int base)
 {
 	int		isneg;
 	long	res;
@@ -98,7 +99,8 @@ long		ft_strtol(const char *nptr, char **endptr, int base)
 		nptr++;
 	isneg = get_sign(&nptr);
 	base = get_base(&nptr, base);
-	if ((val = get_char_in_range(*nptr, base)) == -1)
+	val = get_char_in_range(*nptr, base);
+	if (val == -1)
 		return (res);
 	while (val != -1)
 	{

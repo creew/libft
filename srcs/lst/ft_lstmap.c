@@ -18,7 +18,7 @@ static void	del(void *content, size_t content_size)
 	(void)(content_size);
 }
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
 	t_list	*next;
 	t_list	*res;

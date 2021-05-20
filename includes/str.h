@@ -1,8 +1,8 @@
 #ifndef STR_H
 # define STR_H
 
-#include <string.h>
-#include "stringbuffer.h"
+# include <string.h>
+# include "stringbuffer.h"
 
 int				ft_atoi(const char *str);
 int				ft_isalnum(int c);
@@ -36,7 +36,7 @@ char			*ft_strndup(const char *s1, size_t n);
 int				ft_strnequ(char const *s1, char const *s2, size_t n);
 char			*ft_strnew(size_t size);
 char			*ft_strnstr(const char *haystack, const char *needle,
-							size_t len);
+					size_t len);
 char			*ft_strpbrk(const char *s, const char *charset);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strrev(char *str);
@@ -48,7 +48,5 @@ char			*ft_strtrim(char const *s);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 char			*ft_trim_spaces(char *str);
-
-
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int			ft_stack_push(t_ftstack *stack, void *data)
+int	ft_stack_push(t_ftstack *stack, void *data)
 {
 	return (ft_array_add(stack, data));
 }

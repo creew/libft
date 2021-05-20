@@ -12,30 +12,41 @@
 
 #include "libft.h"
 
+static void	right_to_left(size_t len, unsigned char *to,
+						  const unsigned char *from)
+{
+	size_t	count;
+
+	count = 0;
+	while (count < len)
+	{
+		to[count] = from[count];
+		count++;
+	}
+}
+
+static void	left_to_right(size_t len, unsigned char *to,
+						  const unsigned char *from)
+{
+	while (len > 0)
+	{
+		to[len - 1] = from[len - 1];
+		len--;
+	}
+}
+
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	unsigned char		*to;
 	const unsigned char	*from;
-	size_t				count;
 
 	to = (unsigned char *)dst;
 	from = (const unsigned char *)src;
 	if (from == to)
 		return (dst);
 	if (from > to)
-	{
-		count = 0;
-		while (count < len)
-		{
-			to[count] = from[count];
-			count++;
-		}
-	}
+		right_to_left(len, to, from);
 	else
-		while (len > 0)
-		{
-			to[len - 1] = from[len - 1];
-			len--;
-		}
+		left_to_right(len, to, from);
 	return (dst);
 }

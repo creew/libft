@@ -16,7 +16,7 @@
 ** Function swaps values between first and second pointers with size elem_size
 */
 
-void		ft_swapvals(char *d1, char *d2, size_t elem_size)
+void	ft_swapvals(char *d1, char *d2, size_t elem_size)
 {
 	int				itmp;
 	char			ctmp;

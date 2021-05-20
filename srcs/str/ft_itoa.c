@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*s;
 	int		nb;
@@ -20,7 +20,8 @@ char			*ft_itoa(int n)
 
 	nb = n;
 	len = ft_intlen(n);
-	if (!(s = ft_strnew(len)))
+	s = ft_strnew(len);
+	if (!s)
 		return (NULL);
 	s[len] = '\0';
 	if (nb == 0)

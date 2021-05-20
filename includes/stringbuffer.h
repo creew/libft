@@ -15,7 +15,7 @@
 
 # include "errors.h"
 
-typedef struct	s_sb {
+typedef struct s_sb {
 	size_t	size;
 	size_t	length;
 	char	*buf;

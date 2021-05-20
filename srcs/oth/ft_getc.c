@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include "libft.h"
 
-int		ft_getc(int fd)
+int	ft_getc(int fd)
 {
 	char	c;
 	int		ret;

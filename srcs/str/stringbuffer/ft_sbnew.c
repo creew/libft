@@ -18,11 +18,11 @@ t_sb	*ft_sbnew(size_t size)
 
 	sb = ft_memalloc(sizeof(t_sb));
 	if (sb == NULL)
-		return NULL;
+		return (NULL);
 	if (ft_sbinit(sb, size) != FT_OK)
 	{
 		ft_memdel((void **)&sb);
-		return NULL;
+		return (NULL);
 	}
 	return (sb);
 }

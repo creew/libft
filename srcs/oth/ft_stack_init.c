@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		ft_stack_init(t_ftstack *stack, size_t init_val)
+int	ft_stack_init(t_ftstack *stack, size_t init_val)
 {
 	return (ft_array_init(stack, init_val));
 }
